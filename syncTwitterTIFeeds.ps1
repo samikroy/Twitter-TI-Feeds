@@ -1,6 +1,6 @@
 $TwitterTIFeedDownloadURL = "https://twitter.threatintel.rocks/"
 $TwitterTIFeedResponse = Invoke-RestMethod -URI $TwitterTIFeedDownloadURL
-$jsonFileData = $TwitterTIFeedResponse.RawContent | ConvertTo-Json
+$jsonFileData = $TwitterTIFeedResponse | ConvertTo-Json
 
 write-host "File Fetch completed."
 
