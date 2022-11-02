@@ -6,7 +6,6 @@ write-host "File Fetch completed."
 
 #decleration
 $file = ".\twittertifeeds.json"
-$text = $jsonFileData
 $wi = "#13 #14"
 
 "Set config"
@@ -23,7 +22,8 @@ git pull  2>&1 | write-host
 git status 2>&1 | write-host
 
 "Update the file $file"
-Add-Content -Path $file -Value $text
+Clear-Content -Path $file
+Add-Content -Path $file -Value $jsonFileData
 
 "Status prior to stage"
 git status 2>&1 | write-host
