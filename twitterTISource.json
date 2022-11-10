@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "workspaceName": {
+      "type": "String"
+    },
+    "location": {
+      "type": "String"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2017-03-15-preview",
+      "name": "[parameters('workspaceName')]",
+      "location": "[parameters('location')]",
+      "resources": [
+        {
+          "type": "savedSearches",
+          "apiVersion": "2020-08-01",
+          "name": "GetGCPIPRanges",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "properties": {
+            "etag": "*",
+            "displayName": "TwitterTIFeed",
+            "category": "Security",
+            "FunctionAlias": "TwitterTIFeed",
+            "query": "externaldata(TIThread:string)[ h@'https://raw.githubusercontent.com/samikroy/Twitter-TI-Feeds/main/twittertifeeds.txt']with(format='txt')| extend TIThread =  todynamic(TIThread)| project TIThread['author_id'],TIThread['created_at'],TIThread['id'],TIThread['malicious_urls'],TIThread['name'],TIThread['text'],TIThread['username']",
+            "version": 1
+          }
+        }
+      ]
+    }
+  ]
+}
