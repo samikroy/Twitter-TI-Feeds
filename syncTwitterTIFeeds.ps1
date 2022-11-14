@@ -23,7 +23,7 @@ git pull  2>&1 | write-host
 git status 2>&1 | write-host
 
 "Update the file $file"
-#Clear-Content -Path $file
+Clear-Content -Path $file
 Add-Content -Path $file -Value $jsonFileData
 
 "Status prior to stage"
